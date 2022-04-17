@@ -5,6 +5,8 @@ import {COLORS, QUERIES, WEIGHTS} from '../../constants';
 import Logo from '../Logo';
 import SuperHeader from '../SuperHeader';
 import MobileMenu from '../MobileMenu';
+import Icon from "../Icon";
+import UnstyledButton from "../UnstyledButton/UnstyledButton";
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
@@ -29,7 +31,18 @@ const Header = () => {
           <NavLink href="/kids">Kids</NavLink>
           <NavLink href="/collections">Collections</NavLink>
         </Nav>
-        <Side />
+        <MobileNav>
+          <UnstyledButton>
+            <Icon id="shopping-bag"/>
+          </UnstyledButton>
+          <UnstyledButton>
+            <Icon id="search"  />
+          </UnstyledButton>
+          <UnstyledButton>
+            <Icon id="menu"  />
+          </UnstyledButton>
+        </MobileNav>
+        <Filler />
       </MainHeader>
 
       <MobileMenu
@@ -49,6 +62,12 @@ const MainHeader = styled.div`
 
   @media ${QUERIES.tabletAndDown} {
     border-top: 4px solid ${COLORS.gray[900]};
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  @media ${QUERIES.phoneAndDown} {
+    padding: 18px 16px;
   }
 `;
 
@@ -56,10 +75,26 @@ const Nav = styled.nav`
   display: flex;
   gap: 48px;
   margin: 0px 48px;
+  
+  @media ${QUERIES.tabletAndDown} {
+    display: none;
+  }
 `;
 
 const Side = styled.div`
   flex: 1;
+
+  @media ${QUERIES.tabletAndDown} {
+    flex: revert;
+  }
+`;
+
+const Filler = styled.div`
+  flex: 1;
+
+  @media ${QUERIES.tabletAndDown} {
+    display: none;
+  }
 `;
 
 const NavLink = styled.a`
@@ -72,10 +107,21 @@ const NavLink = styled.a`
   &:first-of-type {
     color: ${COLORS.secondary};
   }
+`;
+
+const MobileNav = styled.div`
+  display: none;
+  color: ${COLORS.gray[900]};
 
   @media ${QUERIES.tabletAndDown} {
-    display: none;
+    display: flex;
+    gap: 32px;
+    margin-left: 1.5rem;
   }
-`;
+
+  @media ${QUERIES.phoneAndDown} {
+    gap: 1rem;
+  }
+`
 
 export default Header;
